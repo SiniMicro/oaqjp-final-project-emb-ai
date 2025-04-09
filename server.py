@@ -6,6 +6,9 @@ def emo_analyzer():
     data = request.json
     statement = data.get("statement", "")   
     result = emotion_detector(statement)    
+    if result['dominant_emotion'] is None:  # Check if the dominant emotion is None
+        output_message = "Invalid text! Please try again!"
+        return jsonify(result=result, message=output_message)
     output_message = (
         f"For the given statement, the system response is "
         f"'anger': {result['anger']}, 'disgust': {result['disgust']}, "
